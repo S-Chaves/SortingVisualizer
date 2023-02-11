@@ -1,13 +1,15 @@
-import { DELAY } from '../index.js';
+import { DELAY, RUNNING } from '../index.js';
 import { getHeight, sleep, toggleSortBtn } from './utils.js';
 
 async function selectionSort() {
   const bars = document.querySelectorAll('.bar');
   const barsLen = bars.length;
 
+  loop1:
   for (let i = 0; i < barsLen - 1; i++) {
     let p = i;
     for (let j = i; j < barsLen; j++) {
+      if (!RUNNING) break loop1;
       changeColor(bars, p, j);
       // Compare bars height
       if (getHeight(bars, p) > getHeight(bars, j)) {
@@ -16,7 +18,7 @@ async function selectionSort() {
 
       await sleep(DELAY);
     }
-    const firstH =  getHeight(bars, i);
+    const firstH = getHeight(bars, i);
     const minH = getHeight(bars, p);
     // Swap bars
     bars[p].style.height = `${firstH}px`;
@@ -24,7 +26,7 @@ async function selectionSort() {
     bars[i].style.backgroundColor = 'lime';
   }
 
-  bars[barsLen - 1].style.backgroundColor = 'lime';
+  if (RUNNING) bars[barsLen - 1].style.backgroundColor = 'lime';
   toggleSortBtn();
 }
 

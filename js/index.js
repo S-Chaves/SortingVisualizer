@@ -3,17 +3,28 @@ import { sleep } from './algorithms/utils.js';
 
 let DELAY = 5; // Algorithms sleep time
 let CANT = null; // Number of bars
-const BARS_CONT_W = 800; // 50rem
+let RUNNING = false; // Is sorting running
+const BARS_CONT_W = 800; // Bars Width 50rem
 
 const barsContainer = document.querySelector('.bars');
 
-
+const barsCant = document.querySelector('.barsCant');
 const barsSlider = document.querySelector('.barsSlider');
-barsSlider.addEventListener('change', plotBars);
+barsSlider.addEventListener('input', (e) => {
+  RUNNING = false;
+  plotBars();
+});
 
+const sortSpeed = document.querySelector('.sortSpeed');
 const delaySlider = document.querySelector('.delaySlider');
-delaySlider.addEventListener('change', (e) => DELAY = e.target.value);
+delaySlider.addEventListener('input', (e) => {
+  sortSpeed.textContent = e.target.value;
+  DELAY = e.target.value;
+});
 
+
+const stopBtn = document.querySelector('.stop');
+stopBtn.addEventListener('click', () => RUNNING = false);
 
 const shuffleBtn = document.querySelector('.shuffle');
 shuffleBtn.addEventListener('click', shuffleBars);
@@ -21,13 +32,14 @@ shuffleBtn.addEventListener('click', shuffleBars);
 const sortBtn = document.querySelector('.sort');
 sortBtn.addEventListener('click', (e) => {
   e.target.disabled = true;
+  shuffleBtn.disabled = true;
+  RUNNING = true;
+
   const sort = document.querySelector('.sorts').value;
   algorithms[sort]();
 });
 
-
 plotBars();
-
 
 // Functions
 function randomNum(num, offset) {
@@ -36,6 +48,8 @@ function randomNum(num, offset) {
 
 async function plotBars() {
   CANT = barsSlider.value;
+  barsCant.textContent = CANT;
+
   const barWidth = Math.round(BARS_CONT_W / CANT);
   let height = randomNum(barWidth / 2, 2);
 
@@ -51,9 +65,6 @@ async function plotBars() {
     barsContainer.appendChild(bar);
     height += randomNum(barWidth / 2, 2);
   }
-
-  await sleep(1000);
-  await shuffleBars();
 }
 
 async function shuffleBars() {
@@ -63,12 +74,12 @@ async function shuffleBars() {
     const rand = randomNum(CANT, 0);
     const temp = bars[i].style.height;
 
-    bars[i].style.backgroundColor = 'skyblue'
+    bars[i].style.backgroundColor = 'skyblue';
     bars[i].style.height = bars[rand].style.height;
     bars[rand].style.height = temp;
- 
+
     await sleep(10);
   }
 }
 
-export { DELAY };
+export { DELAY, RUNNING };

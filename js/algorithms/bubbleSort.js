@@ -1,12 +1,14 @@
-import { DELAY } from '../index.js';
+import { DELAY, RUNNING } from '../index.js';
 import { sleep, getHeight, toggleSortBtn } from './utils.js';
 
 async function bubbleSort() {
   const bars = document.querySelectorAll('.bar');
   const barsLen = bars.length - 1;
 
+  loop1:
   for (let i = 0; i < barsLen; i++) {
     for (let j = 0; j < barsLen - i; j++) {
+      if (!RUNNING) break loop1;
       changeColor(bars, j);
       // Get bars heights
       const H1 = getHeight(bars, j);
@@ -23,8 +25,8 @@ async function bubbleSort() {
 
     bars[barsLen - i].style.backgroundColor = 'lime';
   }
-  
-  bars[0].style.backgroundColor = 'lime';
+
+  if (RUNNING) bars[0].style.backgroundColor = 'lime';
   toggleSortBtn();
 };
 
