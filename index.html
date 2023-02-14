@@ -9,7 +9,6 @@
 </head>
 <body>
   <nav>
-    <h1>Sorting Visualizer</h1>
     <button class="btn shuffle">Shuffle</button>
     <button class="btn stop">Stop</button>
     <button class="btn sort">Sort!</button>
@@ -23,11 +22,16 @@
       <p>Speed: <span class="sortSpeed">50</span>ms</p>
       <input type="range" min="0" max="500" value="50" class="delaySlider">
     </div>
-    <select name="sorts" class="sorts">
-      <option value="bubbleSort">Bubble Sort</option>
-      <option value="selectionSort">Selection Sort</option>
-    </select>
+    <h1>Sorting Visualizer</h1>
   </nav>
+  <div class="sortList">
+    <span class="placeholder">Bubble Sort</span>
+    <ul class="sortUl hideUl">
+      <li>Bubble Sort</li>
+      <li>Selection Sort</li>
+    </ul>
+  </div>
+
   <div class="bars"></div>
   <script type="module" src="./js/index.js"></script>
 </body>
