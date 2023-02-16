@@ -16,20 +16,6 @@ body {
   font-family: 'Oswald', sans-serif;
 }
 
-.btn {
-  padding: 0.68rem 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: white;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: whitesmoke;
-}
-
 /* Nav */
 nav {
   display: flex;
@@ -46,8 +32,8 @@ nav {
 /* Algorithm List */
 .sortList {
   position: absolute;
-  top: 7rem;
-  left: 5rem;
+  top: 3rem;
+  left: 8rem;
   font-size: 1.8rem;
 }
 
@@ -121,10 +107,34 @@ nav {
   transition: transform 250ms ease;
 }
 
+/* Config */
+.config {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-inline: auto;
+  margin-top: 3rem;
+  width: 50rem;
+}
+
+.btn {
+  padding: 0.68rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: whitesmoke;
+}
+
 /* Bars */
 .bars {
   position: relative;
-  margin-top: 5rem;
+  margin-top: 4.5rem;
   margin-inline: auto;
   width: 50rem;
   height: 25rem;

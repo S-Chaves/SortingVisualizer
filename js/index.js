@@ -1,14 +1,18 @@
 import algorithms from './algorithms/index.js';
 import { sleep } from './algorithms/utils.js';
 
-let DELAY = 5; // Algorithms sleep time
+const consts = {
+  DELAY: 5, // Algorithms sleep time
+  RUNNING: false, // Is sorting running
+};
+
 let CANT = null; // Number of bars
-let RUNNING = false; // Is sorting running
 const BARS_CONT_W = 800; // Bars Width 50rem
 
 const algos = {
   "Bubble Sort": algorithms.bubbleSort,
-  "Selection Sort": algorithms.selectionSort
+  "Selection Sort": algorithms.selectionSort,
+  "Insertion Sort": algorithms.insertionSort,
 };
 
 const barsContainer = document.querySelector('.bars');
@@ -17,7 +21,7 @@ const barsContainer = document.querySelector('.bars');
 const barsCant = document.querySelector('.barsCant');
 const barsSlider = document.querySelector('.barsSlider');
 barsSlider.addEventListener('input', (e) => {
-  RUNNING = false;
+  consts.RUNNING = false;
   plotBars();
 });
 
@@ -25,7 +29,7 @@ const sortSpeed = document.querySelector('.sortSpeed');
 const delaySlider = document.querySelector('.delaySlider');
 delaySlider.addEventListener('input', (e) => {
   sortSpeed.textContent = e.target.value;
-  DELAY = e.target.value;
+  consts.DELAY = e.target.value;
 });
 
 // Algorithm List
@@ -42,27 +46,33 @@ sortLi.forEach(li => li.addEventListener('click', e => {
 }));
 
 // Buttons
-const stopBtn = document.querySelector('.stop');
-stopBtn.addEventListener('click', () => RUNNING = false);
-
 const shuffleBtn = document.querySelector('.shuffle');
 shuffleBtn.addEventListener('click', shuffleBars);
 
 const sortBtn = document.querySelector('.sort');
 sortBtn.addEventListener('click', (e) => {
-  e.target.disabled = true;
-  shuffleBtn.disabled = true;
-  RUNNING = true;
+  const bars = document.querySelectorAll('.bar');
 
-  const sort = placeholder.textContent;
-  algos[sort]();
+  if (e.target.textContent == 'Sort!') {
+    e.target.textContent = 'Stop';
+
+    shuffleBtn.disabled = true;
+    consts.RUNNING = true;
+
+    const sort = placeholder.textContent;
+    algos[sort](bars);
+  } else {
+    e.target.textContent = 'Sort!';
+    shuffleBtn.disabled = false;
+    consts.RUNNING = false;
+  }
 });
 
 plotBars();
 
 // Functions
 function toggleUlClass() {
-  if (sortUl.classList.contains('hideUl')) sortUl.style.display = 'block'
+  if (sortUl.classList.contains('hideUl')) sortUl.style.display = 'block';
   else setTimeout(() => sortUl.style.display = 'none', 250);
   sortUl.classList.toggle('showUl');
   sortUl.classList.toggle('hideUl');
@@ -108,4 +118,4 @@ async function shuffleBars() {
   }
 }
 
-export { DELAY, RUNNING };
+export { consts };

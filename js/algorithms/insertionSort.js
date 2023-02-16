@@ -1,22 +1,24 @@
 import { consts } from '../index.js';
 import { sleep, getHeight, toggleSortBtn, endColor } from './utils.js';
 
-async function bubbleSort(bars) {
-  const barsLen = bars.length - 1;
+async function insertionSort(bars) {
+  const barsLen = bars.length;
 
   loop1:
-  for (let i = 0; i < barsLen; i++) {
-    for (let j = 0; j < barsLen - i; j++) {
+  for (let i = 1; i < barsLen; i++) {
+    let j = i - 1;
+    // Get heights
+    const H1 = getHeight(bars, i);
+    let H2 = getHeight(bars, j);
+
+    // Compare with each bar
+    while (j >= 0 && H2 > H1) {
       if (!consts.RUNNING) break loop1;
       changeColor(bars, j);
-      // Get bars heights
-      const H1 = getHeight(bars, j);
-      const H2 = getHeight(bars, j + 1);
-      // Compare and swap
-      if (H1 > H2) {
-        bars[j].style.height = `${H2}px`;
-        bars[j + 1].style.height = `${H1}px`;
-      }
+      bars[j + 1].style.height = `${H2}px`;
+      bars[j].style.height = `${H1}px`;
+      j -= 1;
+      if (j >= 0) H2 = getHeight(bars, j);
 
       await sleep(consts.DELAY);
     }
@@ -26,9 +28,8 @@ async function bubbleSort(bars) {
     await endColor(bars);
     toggleSortBtn();
   }
-};
+}
 
-// Change color of bars being compared
 function changeColor(bars, j) {
   bars[j].style.backgroundColor = 'red';
   bars[j + 1].style.backgroundColor = 'red';
@@ -39,4 +40,4 @@ function changeColor(bars, j) {
   }, consts.DELAY);
 }
 
-export default bubbleSort;
+export default insertionSort;

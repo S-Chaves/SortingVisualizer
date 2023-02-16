@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorting Visualizer</title>
-  <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
-  <nav>
-    <button class="btn shuffle">Shuffle</button>
-    <button class="btn stop">Stop</button>
-    <button class="btn sort">Sort!</button>
-    <div>
-      <p>Elements: <span class="barsCant"></span></p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting Visualizer</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <!-- Algorithm list -->
+    <div class="sortList">
+      <span class="placeholder">Bubble Sort</span>
+      <ul class="sortUl hideUl">
+        <li>Bubble Sort</li>
+        <li>Selection Sort</li>
+        <li>Insertion Sort</li>
+      </ul>
+    </div>
+    <!-- config -->
+    <div class="config">
+      <!-- Buttons -->
+      <div class="btns">
+        <button class="btn shuffle">Shuffle</button>
+        <button class="btn sort">Sort!</button>
+      </div>
+      <!-- Sliders -->
       <div>
-        <input type="range" step="1" min="5" max="100" value="50" class="barsSlider">
+        <p>Elements: <span class="barsCant"></span></p>
+        <input
+          type="range"
+          step="1"
+          min="5"
+          max="100"
+          value="50"
+          class="barsSlider"
+        />
+      </div>
+      <div>
+        <p>Speed: <span class="sortSpeed">50</span>ms</p>
+        <input type="range" min="0" max="500" value="50" class="delaySlider" />
       </div>
     </div>
-    <div>
-      <p>Speed: <span class="sortSpeed">50</span>ms</p>
-      <input type="range" min="0" max="500" value="50" class="delaySlider">
-    </div>
-    <h1>Sorting Visualizer</h1>
-  </nav>
-  <div class="sortList">
-    <span class="placeholder">Bubble Sort</span>
-    <ul class="sortUl hideUl">
-      <li>Bubble Sort</li>
-      <li>Selection Sort</li>
-    </ul>
-  </div>
 
-  <div class="bars"></div>
-  <script type="module" src="./js/index.js"></script>
-</body>
+    <!-- Bars -->
+    <div class="bars"></div>
+    <script type="module" src="./js/index.js"></script>
+  </body>
 </html>
